@@ -1,9 +1,4 @@
-output "my_module_output_1" {
-  description = "First output of the module."
-  value       = "MyModuleOutput1"
-}
-
-output "my_module_output_2" {
-  description = "Second output of the module."
-  value       = "MyModuleOutput2"
+output "role_definition" {
+  description = "Any output available of the resource."
+  value       = azurerm_role_definition.this.*
 }
