@@ -1,5 +1,5 @@
-# kttfsample
-This project should show how to use kitchen-terraform and inspec inputs for testing of terraform outputs when using a module.
+# kttfazure
+This project should show how to use kitchen-terraform and inspec-azure (started off from kttfsample).
 
 ## Steps
 - clone the repository
