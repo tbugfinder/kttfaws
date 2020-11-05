@@ -1,6 +1,6 @@
 name: default
 depends:
   - name: inspec-azure
-    url: https://github.com/inspec/inspec-azure/archive/v1.33.2.tar.gz
+    url: https://github.com/inspec/inspec-azure/archive/v1.35.0.tar.gz
 supports:
   - platform: azure
