@@ -17,13 +17,13 @@ pp "#*#*#*#*#*#*#"
 control 'generictest_id' do
   describe azure_generic_resource(resource_id: role_id) do
     it { should exist }
-    its('properties.permissions')         { should include 'Actions' }
-    its('properties.permissions.actions') { should include 'WhichAreTheProperties' } #  undefined method `actions' for #<Array:0x00007f2ea11f68d8>
+    its('properties.permissions.first.actions') { should cmp ["*"] }   #access array using .first
+    its('properties.permissions.first.actions') { should include '*' }
   end
 end
 
 control 'generictest_name' do
-  describe azure_generic_resource(name: role_name) do
+  describe azure_generic_resource(name: role_name) do # doesn't create valid URI
     it { should exist }
   end
 end
@@ -32,9 +32,9 @@ control 'resourcetest' do
   #describe azure_role_definition(name: role_name) do
   describe azure_role_definition(resource_id: role_id) do
     it { should exist }
-    its('permissions') { should include 'less'}
+    its('properties.permissions.first.actions') { should include '*'}
     its('permissions_allowed') { should include 'Microsoft.Authorization/policyassignments/read'}
     its('permissions_allowed') { should_not include 'Microsoft.Authorization/policyassignments/write'}
-    its('permissions_allowed') { should_not include '*'}
+    its('permissions_allowed') { should include '*'}
   end
 end
