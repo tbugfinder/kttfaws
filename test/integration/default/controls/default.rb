@@ -7,34 +7,27 @@ pp fixture_output1
 tfoutput_json_helper = JSON.generate(fixture_output1.first)
 tfoutput_json = JSON.parse(tfoutput_json_helper, {:symbolize_names => false})
 pp "#*#*#*#*#*#*#"
-role_id=tfoutput_json['role_definition'].first['role_definition_resource_id']
-pp role_id
+bucket = tfoutput_json['bucket_module'].first['bucket']
+pp bucket
 pp "#*#*#*#*#*#*#"
-role_name = tfoutput_json['role_definition'].first['name']
-pp role_name
-pp "#*#*#*#*#*#*#"
+#role_name = tfoutput_json['role_definition'].first['name']
+#pp role_name
+#pp "#*#*#*#*#*#*#"
 
-control 'generictest_id' do
-  describe azure_generic_resource(resource_id: role_id) do
-    it { should exist }
-    its('properties.permissions.first.actions') { should cmp ["*"] }   #access array using .first
-    its('properties.permissions.first.actions') { should include '*' }
+
+control 'sdk_check' do
+  s3            = Aws::S3::Client.new()
+  s3_versioning = s3.get_bucket_versioning({ bucket: bucket })
+  describe 'S3 Bucket' do
+    context "versioning" do
+       it { expect(s3_versioning.status).to cmp "Enabled" }
+    end
   end
 end
 
-control 'generictest_name' do
-  describe azure_generic_resource(name: role_name) do # doesn't create valid URI
+control 'aws_profile_check' do
+  describe aws_s3_bucket(bucket_name: bucket) do
     it { should exist }
-  end
-end
-
-control 'resourcetest' do
-  #describe azure_role_definition(name: role_name) do
-  describe azure_role_definition(resource_id: role_id) do
-    it { should exist }
-    its('properties.permissions.first.actions') { should include '*'}
-    its('permissions_allowed') { should include 'Microsoft.Authorization/policyassignments/read'}
-    its('permissions_allowed') { should_not include 'Microsoft.Authorization/policyassignments/write'}
-    its('permissions_allowed') { should include '*'}
+    it { should_not be_public }
   end
 end
