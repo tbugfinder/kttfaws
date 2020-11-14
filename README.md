@@ -1,5 +1,5 @@
-# kttfazure
-This project should show how to use kitchen-terraform and inspec-azure (started off from kttfsample).
+# kttfaws
+This project shows how to use kitchen-terraform and inspec-aws (started off from kttfazure/kttfsample).
 
 ## Steps
 - clone the repository
