@@ -6,7 +6,7 @@ provisioner:
   name: terraform
 
 platforms:
-- name: azure
+- name: aws
 
 verifier:
   name: terraform
@@ -20,8 +20,8 @@ suites:
     root_module_directory: test/fixtures/default
   verifier:
     systems:
-    - name: azure
-      backend: azure
+    - name: aws
+      backend: aws
       reporter:
       - cli
       - json:reports/test/data/inspec/default.json
