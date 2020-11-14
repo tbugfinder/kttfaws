@@ -1,21 +1,17 @@
 #
-# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_definition
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket
 #
 
-data "azurerm_subscription" "primary" {
-}
+resource "aws_s3_bucket" "this" {
+  bucket = "my-tf-test-bucket-${var.id}"
+  acl    = "private"
 
-resource "azurerm_role_definition" "this" {
-  name        = "my-custom-role-in-kttfazure"
-  scope       = data.azurerm_subscription.primary.id
-  description = "This is a custom role created via Terraform"
-
-  permissions {
-    actions     = ["*"]
-    not_actions = []
+  versioning {
+    enabled = true
   }
 
-  assignable_scopes = [
-    data.azurerm_subscription.primary.id, # /subscriptions/00000000-0000-0000-0000-000000000000
-  ]
+  tags = {
+    Name        = "My bucket"
+    Environment = "Dev"
+  }
 }
