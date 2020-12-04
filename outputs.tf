@@ -1,4 +1,4 @@
-output "bucket_module" {
-  description = "Outputs of the bucket resource."
-  value       = aws_s3_bucket.this.*
+output "vpn" {
+  description = "Outputs of the VPN resource."
+  value       = aws_vpn_connection.this.*
 }

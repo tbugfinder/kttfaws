@@ -1,4 +1,4 @@
 output "fixture_output" {
   description = "Passing all outputs of the module."
-  value       = module.mymodule.*
+  value       = module.testvpn.*
 }

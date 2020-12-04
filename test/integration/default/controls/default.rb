@@ -14,7 +14,7 @@ pp "#*#*#*#*#*#*#"
 #pp role_name
 #pp "#*#*#*#*#*#*#"
 
-
+=begin
 control 'sdk_check' do
   s3            = Aws::S3::Client.new()
   s3_versioning = s3.get_bucket_versioning({ bucket: bucket })
@@ -31,3 +31,4 @@ control 'aws_profile_check' do
     it { should_not be_public }
   end
 end
+=end
